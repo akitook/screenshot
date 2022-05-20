@@ -4,16 +4,17 @@ const { scrollPageToBottom } = require('puppeteer-autoscroll-down');
 
 (async () => {
   const browser = await puppeteer.launch();
-  const text = fs.readFileSync('urls.txt').toString().split("\n");
+  const urlList = fs.readFileSync('urlList.txt').toString().split("\n");
   await Promise.all(
-    text.map(url => doScreenCapture(browser, url, false))
+    urlList.map(url => doScreenCapture(browser, url, false))
   )
+  console.log('スクリーンショット完了しました。')
   browser.close();
 })();
 
 async function doScreenCapture(browser, url, isFull) {
   const page = await browser.newPage();
-  page.setViewport({ width: 1600, height: 900 })
+  page.setViewport({ width: 1600, height: 900, deviceScaleFactor: 2 })
   await page.goto(url);
   await page.evaluate(_ => {
     window.scrollTo(0, 0);
@@ -29,6 +30,7 @@ async function doScreenCapture(browser, url, isFull) {
   const hostname = url.match(/^https?:\/{2,}(.*?)(?:\/|\?|#|$)/)[1];
   const imgName = hostname.replace(/\./g, "_");
 
-  await page.screenshot({ path: `${imgName}.jpg`, fullPage: isFull });
+  await page.screenshot({ path: `./images/${imgName}.jpg`, fullPage: isFull });
+  console.log(`Done ${url}`)
   await page.close();
 }
