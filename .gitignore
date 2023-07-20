@@ -1,2 +1,3 @@
 node_modules/
-result/
+images/*.jpg
+.DS_Store

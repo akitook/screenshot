@@ -16,10 +16,11 @@ const imagePool = new ImagePool(cpus().length);
 
 (async () => {
   const browser = await puppeteer.launch();
-  const text = fs.readFileSync('urls.txt').toString().split("\n");
+  const urlList = fs.readFileSync('urlList.txt').toString().split("\n");
   await Promise.all(
-    text.map(url => doScreenCapture(browser, url))
+    urlList.map(url => doScreenCapture(browser, url, false))
   )
+  console.log('スクリーンショット完了しました。')
   browser.close();
 })();
 
