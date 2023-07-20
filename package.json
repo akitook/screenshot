@@ -4,13 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "squoosh": "squoosh-cli --mozjpeg '{quality:75}' -d ./optimized result/*/*.jpg"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@squoosh/cli": "^0.7.3",
+    "@squoosh/lib": "^0.5.3",
+    "png-file-stream": "^1.2.1",
     "puppeteer": "^14.0.0",
     "puppeteer-autoscroll-down": "^1.1.1"
+  },
+  "devDependencies": {
+    "gifencoder": "^2.0.1"
   }
 }
